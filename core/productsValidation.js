@@ -13,7 +13,7 @@ module.exports.addProdtuctValidator = [
 
 
 module.exports.editProductValidator = [
-    body("prodID").isInt().withMessage("enter product ID") ,
+    body("_id").isInt().withMessage("enter product ID") ,
     body("productName").optional().isString().withMessage("product name is string ")
                        .isLength({max : 40}).withMessage("product name lenght not exced 40 chars") ,
     body("description").optional().isString().withMessage("you need enter description of product and must be string") ,
@@ -24,5 +24,9 @@ module.exports.editProductValidator = [
 ]
 
 module.exports.deleteProductValidator = [
-    body("prodID").isInt().withMessage("enter product ID") 
+    body("_id").isInt().withMessage("enter product ID") 
+]
+
+module.exports.getProductByIdValidator = [
+    param("id").isInt().withMessage("The product id is integar")
 ]
