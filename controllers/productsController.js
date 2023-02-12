@@ -12,7 +12,6 @@ module.exports.getAllProducts = (request, respose, next) => {
 
 module.exports.addNewProduct = (request, respose, next) => {
   let productObject = new ProductsSchema({
-    _id: new mongoose.Types.ObjectId(),
     productName: request.body.productName,
     description: request.body.description,
     price: request.body.price,
@@ -27,7 +26,7 @@ module.exports.addNewProduct = (request, respose, next) => {
 
 module.exports.updateProduct = (request, respose, next) => {
   ProductsSchema.updateOne(
-    { prodID: request.body.prodID },
+    { _id: request.body._id },
     {
       $set: request.body,
     }
@@ -37,13 +36,13 @@ module.exports.updateProduct = (request, respose, next) => {
 };
 
 module.exports.deleteProduct = (request, respose, next) => {
-  ProductsSchema.deleteOne({prodID : request.body.prodID})
+  ProductsSchema.deleteOne({_id : request.body._id})
                 .then(()=> respose.status(200).json({data : "product is deleted "}))
                 .catch( err => next(err))
 };
 
 module.exports.getProductByID = (request , response , next) => {
-    ProductsSchema.findOne({prodID : request.params.id})
+    ProductsSchema.findOne({_id : request.params._id})
                     .then(data => response.status(200).json({data}))
                     .catch(err => next(err))
 }
