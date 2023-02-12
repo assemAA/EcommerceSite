@@ -1,0 +1,4 @@
+userName : groupOne
+password : KPDtHg5Vk9RFBHdC
+
+url : mongodb+srv://groupOne:KPDtHg5Vk9RFBHdC@cluster0.e0gn9tq.mongodb.net/test
