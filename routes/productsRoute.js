@@ -18,6 +18,6 @@ productsRouter.route("/products")
                 productsController.deleteProduct)
 
 productsRouter.route("/products/:id")
-                .get(productsController.getProductByID)
+                .get( productsValidation.getProductByIdValidator, productsController.getProductByID)
                 .delete(productsController.deleteProductByID)
 module.exports = productsRouter
