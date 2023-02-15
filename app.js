@@ -2,6 +2,11 @@ const express = require('express')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
 const productsRouter = require('./routes/productsRoute')
+const userRouter = require('./routes/userRoute')
+const authenticationRoute = require("./Routes/AuthenticationRoutes");
+const autherizationMW = require("./Core/Authorization/authorization") ;
+const buyingBagrouter = require('./routes/buyingBagRoute')
+
 require('dotenv').config()
 
 
@@ -26,10 +31,21 @@ server.use( (request , response , next) => {
     next();
 })
 
+server.use(express.json()) 
+
+
+
+
+
 //// middelware layers of routing and authentication 
 
-server.use(express.json())  
+
+server.use(authenticationRoute);
+server.use(autherizationMW);
 server.use(productsRouter)
+server.use(userRouter)
+server.use(buyingBagrouter)
+
 
 /// third layer no page found 
 
