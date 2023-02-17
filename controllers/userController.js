@@ -4,10 +4,9 @@ require("./../models/userModel")
 const userSchema = mongoose.model("User");
 
 module.exports.getUser = (request, respose, next)=>{
-    console.log("get user function")
+console.log("get user function")
   userSchema.find({
-            email : request.body.email ,
-            password : request.body.password 
+            _id : request.id 
       })
   .then((data) => respose.status(200).json({ data }))
     .catch((err) => next(err));
@@ -23,6 +22,8 @@ module.exports.getUserByID = (request , response , next) => {
 
 
 module.exports.addNewUser = (request, respose, next) => {
+
+    
     let userObject = new userSchema({
         _id : new  mongoose.Types.ObjectId() ,
         userName : request.body.userName ,

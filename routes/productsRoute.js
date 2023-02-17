@@ -19,7 +19,6 @@ productsRouter.route("/products")
                 productsController.deleteProduct)
 
 productsRouter.route("/products/:id")
-                .all(autherization.checkAdmin)
                 .get( productsValidation.getProductByIdValidator, productsController.getProductByID)
-                .delete(productsController.deleteProductByID)
+                .delete(autherization.checkAdmin , productsController.deleteProductByID)
 module.exports = productsRouter

@@ -11,6 +11,8 @@ const ProductsSchema = mongoose.model("Products");
 
 module.exports.getBuyingBag = (request, response, next) => {
 
+
+    /// findMany({userId : requset.id})
     buyingBagSchema.findOne({ productId: request.body.productId  , userId : request.body.userId})
         .populate({ path: "productId", select: { productName: 1, description: 1, price: 1, productImage: 1 , _id :0 } })
         .populate({ path: "userId", select: { _id: 0  } })

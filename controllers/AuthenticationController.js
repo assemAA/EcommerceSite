@@ -8,7 +8,7 @@ const usersSchema = mongoose.model("User");
 module.exports.authenticationLogin=(request,response,next)=>{
  
    
-
+    console.log(request)
  
     //admin
     if(request.body.userName=="admin" && request.body.password=="000"){
@@ -27,7 +27,7 @@ module.exports.authenticationLogin=(request,response,next)=>{
         console.log("user authenticated") // 
         usersSchema.findOne({ email : request.body.email , password : request.body.password})
             .then(data=>{
-                console.log("data not found ")
+                
             if(data == null){
                 console.log("data is null ")
                 let error = new Error ("Not Authenticated");

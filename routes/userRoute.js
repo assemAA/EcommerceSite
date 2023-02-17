@@ -9,7 +9,7 @@ const authorization  = require("./../Core/Authorization/authorization");
 
 const userRouter = express.Router();
 userRouter.route("/users")
-          .get( authorization.checkUser , userValidator.getUserDataValidator , checkValidation ,  userController.getUser)
+          .get( authorization.checkUser  ,  userController.getUser)
           .post( userValidator.addUserValidator,checkValidation,userController.addNewUser)
           .patch(authorization.checkUser , userValidator.updateUserValidator,checkValidation,userController.updateUser)
           .delete( userValidator.deleteUserValidator,checkValidation,userController.deleteUser)

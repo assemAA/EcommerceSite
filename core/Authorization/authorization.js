@@ -9,12 +9,14 @@ module.exports=(request,response,next)=> {
     //console.log(request.url)
     //console.log(request.method)
 
+    console.log(request)
 
     try {
         if (request.method.toLowerCase() == 'post' && request.url.toLowerCase() == '/users') 
             next()
         else if (request.method.toLowerCase() == 'get' && request.url.toLowerCase() == '/products')
             next()
+       
         else {
             const token = request.get("authorization").split(" ")[1];
             const decodedToken = jwt.verify(token,process.env.SECRETKEY);
