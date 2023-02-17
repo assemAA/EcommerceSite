@@ -13,8 +13,9 @@ module.exports.getBuyingBag = (request, response, next) => {
 
 
     /// findMany({userId : requset.id})
-    buyingBagSchema.findOne({ productId: request.body.productId  , userId : request.body.userId})
-        .populate({ path: "productId", select: { productName: 1, description: 1, price: 1, productImage: 1 , _id :0 } })
+    console.log(request)
+    buyingBagSchema.find({ userId : request.id})
+        .populate({ path: "productId", select: { productName: 1, description: 1, price: 1, productImage: 1 , _id :1 } })
         .populate({ path: "userId", select: { _id: 0  } })
         .then((data) => {
             if (data == null) throw new Error("data not found");
@@ -25,7 +26,7 @@ module.exports.getBuyingBag = (request, response, next) => {
 
 
 module.exports.addBuyingBag = (request, response, next) => {
-    userSchema.findOne({ _id: request.body. userId })
+    userSchema.findOne({ _id: request.id })
     .then((data) => {
       if (data == null) {
         throw new Error("user is not in database");
@@ -36,7 +37,7 @@ module.exports.addBuyingBag = (request, response, next) => {
                 let buyingBagObject = new buyingBagSchema({
                     _id: new mongoose.Types.ObjectId(),
                     productId: request.body.productId,
-                    userId: request.body.userId,
+                    userId: request.id,
                     quantity: request.body.quantity,
                 });
 
@@ -59,26 +60,26 @@ module.exports.addBuyingBag = (request, response, next) => {
 
 module.exports.updateBuyingBag = (request, response, next) => {
 
-    if (request.id == request.body.userId){
         buyingBagSchema.updateOne(
-            { userId : request.body.userId , productId : request.body.productId },
+            { userId : request.id , _id : request.body._id },
             {
                 $set: request.body,
             }
         )
             .then(() => response.status(200).json({ data: "BuyingBag is updated" }))
             .catch((err) => next(err));
-    }
+    
    
 };
 
 
 module.exports.deleteBuyingBag = (request, response, next) => {
 
-    if (request.id == request.body.userId) {
-        buyingBagSchema.deleteOne({  userId : request.body.userId , productId : request.body.productId})
+    if (request.id == request.id) {
+        buyingBagSchema.deleteOne({ _id : request.body._id })
         .then(() => response.status(200).json({ data: "BuyingBag is deleted " }))
         .catch(err => next(err))
     }
     
 };
+

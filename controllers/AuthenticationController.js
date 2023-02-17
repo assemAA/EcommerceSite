@@ -19,7 +19,7 @@ module.exports.authenticationLogin=(request,response,next)=>{
             id:1,
             userName:"admin",
             password:"000"
-        },process.env.SECRETKEY,{expiresIn:"1h"});
+        },process.env.SECRETKEY);
         response.status(200).json({data:"login as admin",token})
     }
     else 
@@ -40,7 +40,7 @@ module.exports.authenticationLogin=(request,response,next)=>{
                     role:"user",
                     id:data._id,
                     email:data.email,
-                },process.env.SECRETKEY,{expiresIn:"1h"});
+                },process.env.SECRETKEY);
                 response.status(200).json({data:"login as a normal user",token})
 
             }
