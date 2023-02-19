@@ -6,7 +6,7 @@ module.exports.addProdtuctValidator = [
                         .isLength({max : 40}).withMessage("product name lenght not exced 40 chars") ,
     body("description").isString().withMessage("you need enter description of product and must be string") ,
     
-    body("price").isNumeric({min:100}).withMessage("product price must exceed 100$") ,
+    body("price").isNumeric().withMessage("product price must exceed 100$") ,
     body("productImage").isString().withMessage("enter string path for image")
 
 ]
@@ -18,7 +18,7 @@ module.exports.editProductValidator = [
                        .isLength({max : 40}).withMessage("product name lenght not exced 40 chars") ,
     body("description").optional().isString().withMessage("you need enter description of product and must be string") ,
     
-    body("price").optional().isInt({min:100}).withMessage("product price must exceed 100$") ,
+    body("price").optional().isInt().withMessage("product price must exceed 100$") ,
     body("productImage").optional().isString().withMessage("enter string path for image")
 
 ]

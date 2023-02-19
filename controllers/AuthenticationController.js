@@ -11,14 +11,15 @@ module.exports.authenticationLogin=(request,response,next)=>{
     console.log(request)
  
     //admin
-    if(request.body.userName=="admin" && request.body.password=="000"){
+    if(request.body.email=="admin@admin.com" && request.body.password=="00000000"){
         
         //sign(yourOwnDataObject,secretkey,optionsYouMakeOnToken)
         let token = jwt.sign({
             role:"admin",
             id:1,
             userName:"admin",
-            password:"000"
+            password:"00000000" ,
+            email : "admin@admin.com"
         },process.env.SECRETKEY);
         response.status(200).json({data:"login as admin",token})
     }

@@ -26,34 +26,47 @@ module.exports.getBuyingBag = (request, response, next) => {
 
 
 module.exports.addBuyingBag = (request, response, next) => {
-    userSchema.findOne({ _id: request.id })
-    .then((data) => {
-      if (data == null) {
-        throw new Error("user is not in database");
-      } else {
-    ProductsSchema.find({ _id: request.body.productId })
-        .then((pData) => {
-            if (pData != null) {
-                let buyingBagObject = new buyingBagSchema({
-                    _id: new mongoose.Types.ObjectId(),
-                    productId: request.body.productId,
-                    userId: request.id,
-                    quantity: request.body.quantity,
-                });
+    buyingBagSchema.findOne({userId :request.id , productId : request.body.productId})
+                    .then( data => {
+                        if (data == null) {
 
-                buyingBagObject
-                    .save()
-                    .then((data) => response.status(201).json(data))
-                    .catch((err) => next(err));
-                response.status(201).json({ data: "BuyingBag added" });
-            } else {
-                throw new Error("product is not in database ");
-            }
-        })
-        .catch((err) => next(err));
-}
-})
-.catch((err) => next(err));
+                            userSchema.findOne({ _id: request.id })
+                            .then((data) => {
+                              if (data == null) {
+                                throw new Error("user is not in database");
+                              } else {
+                            ProductsSchema.find({ _id: request.body.productId })
+                                .then((pData) => {
+                                    if (pData != null) {
+                                        let buyingBagObject = new buyingBagSchema({
+                                            _id: new mongoose.Types.ObjectId(),
+                                            productId: request.body.productId,
+                                            userId: request.id,
+                                            quantity: request.body.quantity,
+                                        });
+                        
+                                        buyingBagObject
+                                            .save()
+                                            .then((data) => response.status(201).json(data))
+                                            .catch((err) => next(err));
+                                        response.status(201).json({ data: "BuyingBag added" });
+                                    } else {
+                                        throw new Error("product is not in database ");
+                                    }
+                                })
+                                .catch((err) => next(err));
+                        }
+                        })
+                        .catch((err) => next(err));
+                        }
+                        else {
+                            let err  = new Error("product in da bag ")
+                            next(err)
+                        }
+
+                    })
+                    .catch (err => next(err))
+
 };
 
 
